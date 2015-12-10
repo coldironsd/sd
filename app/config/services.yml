@@ -3,7 +3,16 @@
 parameters:
 #    parameter_name: value
 
-services:
+#services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+services:
+    app.request_collector:
+        class: AppBundle\DataCollector\DeliveryRequest
+        tags:
+            -
+                name:     delivery_request
+                template: 'home/home.html.twig'
+                id:       'app.delivery_request'
+        public: false
