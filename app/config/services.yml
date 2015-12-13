@@ -8,7 +8,7 @@ parameters:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 services:
-    app.request_collector:
+    app.delivery_request:
         class: AppBundle\DataCollector\DeliveryRequest
         tags:
             -
