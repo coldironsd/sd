@@ -22,6 +22,19 @@
 
                             <button type="submit" class="btn btn-default">Submit</button>
                         </form>
+                            {{ form_start(form) }}
+                            {{ form_row(form.name) }}
+                            {{ form_row(form.description) }}
+                            {{ form_row(form.pickupAddr) }}
+                            {{ form_row(form.destAddr) }}
+                            {{ form_row(form.createdUserId) }}
+                            {{ form_row(form.cost) }}
+                            {{ form_row(form.deliveryDate) }}
+                            {{ form_row(form.lastUpdated) }}
+                            {{ form_row(form.deliverUserId) }}
+
+                            <button type="submit" class="btn btn-default">Add</button>
+                    {{ form_end(form) }}
                     </div>
                 </div>
             </div>
