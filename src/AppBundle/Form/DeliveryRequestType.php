@@ -1,31 +1,50 @@
 <?php
-// src/AppBundle/DataCollector/DeliveryRequest.php
-namespace AppBundle\DataCollector;
 
-use Symfony\Component\HttpKernel\DataCollector\DataCollector;
+// src/AppBundle/Form/DeliveryRequestType.php
+namespace AppBundle\Form;
 
-class DeliveryRequest extends DataCollector
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+
+class DeliveryRequestType extends AbstractType
 {
-    public function collect(Request $request, Response $response, \Exception $exception = null)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->data = array(
-            'method' => $request->getMethod(),
-            'acceptable_content_types' => $request->getAcceptableContentTypes(),
-        );
+        // $dr = new DeliveryRequest();
+        
+        // $form = $this->createFormBuilder($dr)
+        $builder
+            ->add('name', 'text')
+            ->add('description', 'text')
+            ->add('pickupAddr', 'text')
+            ->add('destAddr', 'text')
+            // ->add('createdUserId', 'hidden', array(
+            //     'data' => $user,
+            // ))
+            ->add('cost', 'text')
+            ->add('deliveryDate', 'date')
+            ->add('lastUpdated', 'date')
+            // ->add('deliverUserId', 'hidden', array(
+            //     'data' => $user,
+            // ))
+
+    ;
     }
 
-    public function getMethod()
+    public function configureOptions(OptionsResolver $resolver)
     {
-        return $this->data['method'];
+        $resolver->setDefaults(array(
+            'data_class' => 'AppBundle\Entity\DeliveryRequest'
+        ));
     }
-
-    public function getAcceptableContentTypes()
-    {
-        return $this->data['acceptable_content_types'];
-    }
-
+    
     public function getName()
     {
-        return 'app.data_collector';
+        return 'name';
     }
 }
