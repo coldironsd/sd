@@ -34,9 +34,19 @@ class DeliveryRequest implements \Serializable
     private $pickup_addr;
     
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $pickup_addr_coord;
+    
+    /**
      * @ORM\Column(length=255, nullable=false)
      */
     private $dest_addr;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $dest_addr_coord;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="deliver_request")
@@ -311,5 +321,53 @@ class DeliveryRequest implements \Serializable
     public function getDeliverUserId()
     {
         return $this->deliver_user_id;
+    }
+
+    /**
+     * Set pickupAddrCoord
+     *
+     * @param string $pickupAddrCoord
+     *
+     * @return DeliveryRequest
+     */
+    public function setPickupAddrCoord($pickupAddrCoord)
+    {
+        $this->pickup_addr_coord = $pickupAddrCoord;
+
+        return $this;
+    }
+
+    /**
+     * Get pickupAddrCoord
+     *
+     * @return string
+     */
+    public function getPickupAddrCoord()
+    {
+        return $this->pickup_addr_coord;
+    }
+
+    /**
+     * Set destAddrCoord
+     *
+     * @param string $destAddrCoord
+     *
+     * @return DeliveryRequest
+     */
+    public function setDestAddrCoord($destAddrCoord)
+    {
+        $this->dest_addr_coord = $destAddrCoord;
+
+        return $this;
+    }
+
+    /**
+     * Get destAddrCoord
+     *
+     * @return string
+     */
+    public function getDestAddrCoord()
+    {
+        return $this->dest_addr_coord;
     }
 }

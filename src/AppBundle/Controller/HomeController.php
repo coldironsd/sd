@@ -16,9 +16,9 @@ class HomeController extends Controller
 {
     
     /**
-     * @Route("/home", name="add_request")
+     * @Route("/home", name="homepage2")
      */
-    public function addAction(Request $request)
+    public function indexAction(Request $request)
     {
         // 1) build the form
         $dr = new DeliveryRequest();

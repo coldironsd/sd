@@ -34,9 +34,19 @@ class DeliveryRequest implements \Serializable
     private $pickup_addr;
     
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $pickup_addr_coord;
+    
+    /**
      * @ORM\Column(length=255, nullable=false)
      */
     private $dest_addr;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $dest_addr_coord;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="deliver_request")
