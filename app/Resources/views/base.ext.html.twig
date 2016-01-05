@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Login{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
             {#{% stylesheets '@AppBundle/Resources/public/css/*' filter='cssrewrite' %}#}
             {#    <link rel="stylesheet" href="{{ asset_url }}" />#}
@@ -50,16 +50,16 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a id="navAbout" href="#" onclick="scrollToAnchor('home');">Home</a>
+                            <a id="navHome" onclick="scrollToAnchor('home');">Home</a>
                         </li>
                         <li>
-                            <a id="navAbout" href="#" onclick="scrollToAnchor('about');">About</a>
+                            <a id="navAbout"  onclick="scrollToAnchor('about');">About</a>
                         </li>
                         <li>
-                            <a id="navServices" href="#" onclick="scrollToAnchor('services');">Services</a>
+                            <a id="navServices"  onclick="scrollToAnchor('services');">Services</a>
                         </li>
                         <li>
-                            <a id="navContactct" href="#" onclick="scrollToAnchor('contact');">Contact</a>
+                            <a id="navContactct"  onclick="scrollToAnchor('contact');">Contact</a>
                         </li>
                         <li>
                             <a href="{{ url('login') }}">Sign In</a>
