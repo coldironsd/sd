@@ -7,10 +7,15 @@ user_registration:
     path:     /register
     defaults: { _controller: AppBundle:Registration:register }
 
-add_request:
-    path:     /home
-    defaults: { _controller: AppBundle:Home:add }
-
+logout:
+    path: /logout
+    
+login:
+    path: /login
+    
+home:
+    path: /home
+    
 # hwi_oauth_redirect:
 #     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
 #     prefix:   /connect

@@ -19,16 +19,18 @@ security:
                 pattern:    ^/(_profiler|_wdt|css|js|jpg|png)
                 security:   false
             login_firewall:
-                pattern:   ^/register$|^/login$
+                pattern:   ^/register$|^/login$|^/$
                 anonymous: ~
             secured_area:
                 pattern:    ^/
                 form_login: ~
+                logout:
+                    path:   /logout
+                    target: /
                 
     access_control:
         - { path: ^/css, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/js, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/home, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: ROLE_ADMIN }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }

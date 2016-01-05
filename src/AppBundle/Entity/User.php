@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -18,7 +19,7 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->deliveryRequests = new ArrayCollection();
+         $this->deliveryRequests = new ArrayCollection();
          $this->isActive = true;
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid(null, true));
