@@ -6,16 +6,16 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-lg-offset-4">
                     <div class="intro-message">
-                        <h2>Register</h2>
+                        <h2 style="margin-bottom: 2em;">Sign up</h2>
                     {{ form_start(form) }}
-                        {{ form_row(form.username) }}
-                        {{ form_row(form.email) }}
-                        {{ form_row(form.password.first) }}
-                        {{ form_row(form.password.second) }}
+                        {{ form_row(form.username, {'attr': {'placeholder': 'Username'} }) }}
+                        {{ form_row(form.email, {'attr': {'placeholder': 'Email'} }) }}
+                        {{ form_row(form.password.first, {'attr': {'placeholder': 'Password'} }) }}
+                        {{ form_row(form.password.second,{'attr': {'placeholder': 'Repeat Password'} }) }}
                     
-                        <button type="submit" class="btn btn-default">Register</button>
+                        <button type="submit" class="btn btn-success pull-right"style="margin-top: 2em; padding-left: 3em;padding-right: 3em;">Register</button>
                     {{ form_end(form) }}
                 </div>
             </div>

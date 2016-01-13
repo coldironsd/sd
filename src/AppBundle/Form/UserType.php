@@ -12,12 +12,12 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', 'email')
-            ->add('username', 'text')
+            ->add('email', 'email', array('label' => false))
+            ->add('username', 'text', array('label' => false))
             ->add('password', 'repeated', array(
                 'type' => 'password',
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'),
+                'first_options'  => array('label' => false), 
+                'second_options' => array('label' => false),
             )
         );
     }
