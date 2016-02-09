@@ -14,7 +14,12 @@ login:
     path: /login
     
 home:
-    path: /home
+    path: /
+    
+mydashboard:
+    path: /mydashboard
+    defaults: { _controller: AppBundle:Mydashboard:mydashboard }
+
     
 # hwi_oauth_redirect:
 #     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"

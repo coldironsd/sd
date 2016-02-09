@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container" style="margin-top:7em;">
+<div class="row col-lg-80 col-lg-offset-30 center-block">
+    
+    <div class="row col-lg-12 col-lg-offset-1 form-inline">
+        
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+            <div class="col-lg-4">{{ form_row(form.pickup_addr) }}</div>
+            <div class="col-lg-4">{{ form_row(form.dest_addr) }}</div>
+        {{ form_end(form) }}
+        
+    </div>
+    {% for req in requests %}
+        <li>{{ req.name|e }}</li>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

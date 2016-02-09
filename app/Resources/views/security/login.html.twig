@@ -10,8 +10,11 @@
 
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-4">
+                    
                     <div class="intro-message">
-                        <h2 style="margin-bottom: 2em;">Sign in</h2>
+                        <div class="panel panel-default">
+                        <div class="panel-body">
+                        <h2 style="margin-bottom: 2em;text-align: center;">Sign in</h2>
                         <form action="{{ path('login_check') }}" method="post">
                             <div class="form-group form-inline">
                                 <input type="text" class="form-control" placeholder="Username" id="username" style="width:100%" name="_username" value="{{ last_username }}" />
@@ -27,6 +30,8 @@
                             
                             <button type="submit" class="btn btn-success pull-right" style="margin-top: 2em; padding-left: 3em;padding-right: 3em;">Sign in</button>
                         </form>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
