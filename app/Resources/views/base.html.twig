@@ -19,13 +19,20 @@
         
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         
+        
     </head>
     <body>
+        
         {% block body %}
         
         {% endblock %}
         {% block javascripts %}
-            {% javascripts '@AppBundle/Resources/public/js/*' %}
+        
+            {% javascripts '@AppBundle/Resources/public/js/jquery.js' %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2VWJUm3sur1ZwGM5FpFMiXmYtWKNVcPY&libraries=places&callback=initAutocomplete" async defer></script>
+            {% javascripts '@AppBundle/Resources/public/js/bootstrap.min.js' %}
                 <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
             {% javascripts '@AppBundle/Resources/public/js/google/*' %}
@@ -59,5 +66,5 @@
         </nav>  
            
     </body>
-    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>    
+    
 </html>

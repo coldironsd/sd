@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use AppBundle\Form\DataTransformer\DateTimeTransformer;
+
 
 class DeliveryRequestType extends AbstractType
 {
@@ -19,21 +21,35 @@ class DeliveryRequestType extends AbstractType
         
         // $form = $this->createFormBuilder($dr)
         $builder
-            ->add('name', 'text')
-            ->add('description', 'text')
+            ->add('name', 'text', array(
+                'label' => 'what'))
+            // ->add('description', 'text')
             ->add('pickupAddr', 'text')
-            ->add('destAddr', 'text')
+            // ->add('destAddr', 'text')
             // ->add('createdUserId', 'hidden', array(
             //     'data' => $user,
             // ))
             ->add('cost', 'text')
-            ->add('deliveryDate', 'date')
-            ->add('lastUpdated', 'date')
+            // ->add('deliveryDate', 'date')
+            ->add('deliveryDate', null, array(
+                'required' => true,
+                'label' => false,
+                'translation_domain' => 'AppBundle',
+                'attr' => array(
+                    'class' => 'form-control input-inline datetimepicker',
+                    'data-provide' => 'datepicker',
+                    'data-format' => 'dd-mm-yyyy HH:ii',
+                ),
+            ))
+            // ->add('lastUpdated', 'date')
             // ->add('deliverUserId', 'hidden', array(
             //     'data' => $user,
             // ))
 
     ;
+    
+    $builder->get('deliveryDate')
+            ->addModelTransformer(new DateTimeTransformer());
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -45,6 +61,6 @@ class DeliveryRequestType extends AbstractType
     
     public function getName()
     {
-        return 'name';
+        return 'add_request';
     }
 }

@@ -22,15 +22,13 @@ class SearchController extends Controller
     public function searchindexAction(Request $request)
     {
         $deliReq = new DeliveryRequest();
-        
-        // fetch all.
-        $allReqs = $this->getDoctrine()->getRepository('AppBundle:DeliveryRequest')->findAll();
-        
+        $allReqs = null;
         // create form object.
         $form = $this->createFormBuilder($deliReq)
             ->add('pickup_addr', 'text', array('label' => false, 'attr' => array(
                 'class' => 'form-control',
                 'style' => 'width: 25em;',
+                'id' => 'test',
                 'maxlength' => 30,
                 'placeholder' => 'Form')))
             ->add('dest_addr', 'text',  array('label' => false, 'attr' => array(
@@ -46,9 +44,33 @@ class SearchController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             // ... perform some action, such as saving the task to the database
-    
-            return $this->redirectToRoute('task_success');
-        }            
+            // fetch with pickup and dest address and sort by date.
+            $repository = $this->getDoctrine()->getRepository('AppBundle:DeliveryRequest');
+            
+            $query = $repository->createQueryBuilder('dr')
+                   ->where('dr.pickup_addr LIKE :pickupaddr OR dr.dest_addr LIKE :destaddr')
+                    ->orderBy('dr.delivery_date', 'ASC')
+                   ->getQuery();
+                   
+            // SEARCH BOTH VALUES
+            if($form->get('pickup_addr')->getData()!== null && $form->get('dest_addr')->getData()!== null){
+                $query->setParameter('pickupaddr', '%' . $form->get('pickup_addr')->getData() . '%');
+                $query->setParameter('destaddr', '%' . $form->get('dest_addr')->getData() . '%');
+            // ONLY SEARCH PICKUP ADDRESS
+            }elseif($form->get('pickup_addr')->getData()!== null && $form->get('dest_addr')->getData()== null){
+                $query->setParameter('pickupaddr', '%' . $form->get('pickup_addr')->getData() . '%');
+                $query->setParameter('destaddr', '' . $form->get('dest_addr')->getData() . '');
+            // ONLY SEARCH DEST ADDRESS
+            }elseif($form->get('pickup_addr')->getData()== null && $form->get('dest_addr')->getData()!== null){
+                $query->setParameter('pickupaddr', '' . $form->get('pickup_addr')->getData() . '');
+                $query->setParameter('destaddr', '%' . $form->get('dest_addr')->getData() . '%');
+            }
+            $allReqs = $query->getResult();
+                   
+        }else{
+             // fetch all.
+            $allReqs = $this->getDoctrine()->getRepository('AppBundle:DeliveryRequest')->findAll();
+        }
         
         return $this->render('search/search.html.twig', array('form' => $form->createView(),
         'requests' => $allReqs,));

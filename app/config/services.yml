@@ -16,3 +16,9 @@ services:
                 template: 'home/home.html.twig'
                 id:       'app.delivery_request'
         public: false
+        
+    app.form.type.add_request:
+        class: AppBundle\Form\DeliveryRequestType
+        arguments: [AppBundle\Entity\DeliveryRequest]
+        tags:
+            - { name: form.type, alias: add_request }

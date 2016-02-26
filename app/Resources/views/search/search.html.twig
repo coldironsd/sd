@@ -9,14 +9,39 @@
         
         {{ form_start(form) }}
         {{ form_errors(form) }}
-            <div class="col-lg-4">{{ form_row(form.pickup_addr) }}</div>
-            <div class="col-lg-4">{{ form_row(form.dest_addr) }}</div>
+            <div class="col-lg-4">{{ form_row(form.pickup_addr, {'id': 'autocomplete-pickupAddr'}) }}</div>
+            <div class="col-lg-4">{{ form_row(form.dest_addr, {'id': 'autocomplete-destAddr'}) }}</div>
+            {#<div class="col-lg-4">{{ form_row(form.pickup_addr, {'required': false}) }}</div>#}
+            {#<div class="col-lg-4">{{ form_row(form.dest_addr, {'required': false}) }}</div>#}
         {{ form_end(form) }}
         
     </div>
-    {% for req in requests %}
-        <li>{{ req.name|e }}</li>
-    {% endfor %}
+    <div class="row col-lg-12">
+        <table class="table" style="margin-top: 1em;">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Info</th>
+                <th>Pick Up</th>
+                <th>Destination</th>
+                <th>Delivery Date</th>
+                <th>Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for req in requests %}
+                  <tr>
+                    <td>{{ req.name|e }}</td>
+                    <td>{{ req.description|e }}</td>
+                    <td>{{ req.pickupAddr|e }}</td>
+                    <td>{{ req.destAddr|e }}</td>
+                    <td>{{ req.deliveryDate|date('Y-m-d') }}</td>
+                    <td>{{ req.cost|e }}</td>
+                  </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
 </div>
 </div>
 {% endblock %}

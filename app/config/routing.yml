@@ -20,11 +20,14 @@ mydashboard:
     path: /mydashboard
     defaults: { _controller: AppBundle:Mydashboard:mydashboard }
 
+addrequest:
+    path: /addrequest
+    defaults: { _controller: AppBundle:AddRequest:addRequest }
     
-# hwi_oauth_redirect:
-#     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-#     prefix:   /connect
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
 
-# hwi_oauth_login:
-#     resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-#     prefix:   /login
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /login
