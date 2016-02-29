@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use AppBundle\Form\DataTransformer\DateTimeTransformer;
-
+// use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class DeliveryRequestType extends AbstractType
 {
@@ -22,14 +22,19 @@ class DeliveryRequestType extends AbstractType
         // $form = $this->createFormBuilder($dr)
         $builder
             ->add('name', 'text', array(
-                'label' => 'what'))
+                'label' => false))
             // ->add('description', 'text')
-            ->add('pickupAddr', 'text')
-            // ->add('destAddr', 'text')
+            ->add('pickupAddr', 'text', array(
+                'label' => false))
+            ->add('destAddr', 'text', array(
+                'label' => false))
             // ->add('createdUserId', 'hidden', array(
             //     'data' => $user,
             // ))
-            ->add('cost', 'text')
+            ->add('cost', 'money', array(
+                // 'divisor' => 100
+                'currency' => "USD",
+                'label' => false))
             // ->add('deliveryDate', 'date')
             ->add('deliveryDate', null, array(
                 'required' => true,

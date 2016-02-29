@@ -2,7 +2,7 @@
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
-// use HWI\Bundle\OAuthBundle;
+// use HWI\OAuthBundle\HWIOAuthBundle;
 
 class AppKernel extends Kernel
 {
@@ -18,7 +18,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
-            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+            // new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
