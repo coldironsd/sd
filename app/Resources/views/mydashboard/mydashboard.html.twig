@@ -6,11 +6,47 @@
     <div class="row" style="margin-top: 1em;">
         <div class="col-md-3">
             <ul class="list-group">
-              <li class="list-group-item"><span class="badge" style="background-color:red">14</span><a href="#">Send Product</a></li>
-              <li class="list-group-item"><span class="badge" style="background-color:red">5</span><a href="#">Carry Product</a></li>
+              <li class="list-group-item"><span class="badge" style="background-color:red">14</span><a href="{{ path('mydashboard') }}">Send Product</a></li>
+              <li class="list-group-item"><span class="badge" style="background-color:red">5</span><a href="{{ path('mytakerequest') }}">Carry Product</a></li>
             </ul>
         </div>
-        <div class="col-md-9">CONTENT</div>  
+        <div class="col-md-9"> 
+            <div class="row">
+                {# this is the loop to generate all deliver request in blocks. #}
+                {% if mydrs is defined %}
+                {% for dr in mydrs %}
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <h3>{{ dr.name }}</h3>
+                            <p>...</p>
+                            <p><a href="#" class="btn btn-warning" role="button">Confirm</a> <a href="#" class="btn btn-default" role="button">Remove</a></p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+                
+                {# this is the loop to generate all take request in blocks. #}
+                {% if mytrs is defined %}
+                {% for tr in mytrs %}
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <h3>{{ tr.id }}</h3>
+                            <p>...</p>
+                            <p><a href="#" class="btn btn-warning" role="button">Confirm</a> <a href="#" class="btn btn-default" role="button">Remove</a></p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                    {% if mytrs is null %}
+                    <p>NOTHING</p>
+                    {% endif %}
+                {% endif %}
+                
+            </div>
+        </div>  
     </div>
 </div>
 {% endblock %}

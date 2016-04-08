@@ -25,18 +25,18 @@ class SearchController extends Controller
         $allReqs = null;
         // create form object.
         $form = $this->createFormBuilder($deliReq)
-            ->add('name', 'text', array('label' => false, 'attr' => array(
-                'class' => 'form-control',
+            ->add('dest_addr', 'text', array('label' => false, 'attr' => array(
+                'class' => 'autocomplete-destAddr',
                 'style' => 'width: 25em;',
                 'id' => 'test',
                 'maxlength' => 30,
-                'placeholder' => 'What')))
+                'placeholder' => 'To Where')))
             ->add('pickup_addr', 'text', array('label' => false, 'attr' => array(
-                'class' => 'form-control',
+                'class' => 'autocomplete-pickupAddr',
                 'style' => 'width: 25em;',
                 'id' => 'test',
                 'maxlength' => 30,
-                'placeholder' => 'Where')))
+                'placeholder' => 'From Where')))
             ->add('search', 'submit', array('label' => 'Search', 'attr' => array(
                 'class'   => 'btn btn-primary')))
             ->getForm();

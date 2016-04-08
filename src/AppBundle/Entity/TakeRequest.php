@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Table(name="deliver_request")
+ * @ORM\Table(name="take_request")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\TakeRequestRepository")
  */
 class TakeRequest implements \Serializable
@@ -65,9 +65,9 @@ class TakeRequest implements \Serializable
      *
      * @return TakeRequest
      */
-    public function setUserId($createdUserId)
+    public function setUserId($userId)
     {
-        $this->created_user_id = $createdUserId;
+        $this->user_id = $userId;
 
         return $this;
     }
@@ -79,7 +79,7 @@ class TakeRequest implements \Serializable
      */
     public function getUserId()
     {
-        return $this->created_user_id;
+        return $this->user_id;
     }
 
     /**

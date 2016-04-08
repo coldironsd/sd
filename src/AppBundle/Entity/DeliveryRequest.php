@@ -75,6 +75,11 @@ class DeliveryRequest implements \Serializable
      * @ORM\JoinColumn(name="deliver_user_id", referencedColumnName="id", nullable=false)
      */
     private $deliver_user_id;
+    
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $status;
 
     /** @see \Serializable::serialize() */
     public function serialize()
@@ -369,5 +374,29 @@ class DeliveryRequest implements \Serializable
     public function getDestAddrCoord()
     {
         return $this->dest_addr_coord;
+    }
+    
+    /**
+     * Set status
+     *
+     * @param integer $status
+     *
+     * @return DeliveryRequest
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }
