@@ -16,7 +16,7 @@ class DateTimeTransformer implements DataTransformerInterface
     public function transform($datetime)
     {
         if (null === $datetime) {
-            return '';
+            return 'EMPTY';
         }
 
         return $datetime->format('d/m/Y H:i');
@@ -28,13 +28,14 @@ class DateTimeTransformer implements DataTransformerInterface
      * @param  string $datetime
      * @return DateTime|null
      */
-    public function reverseTransform($mydatetime)
+    public function reverseTransform($datetime)
     {
         // datetime optional
         if (!$datetime) {
-            return;
+            echo 'EMPTY';
+            return 'EMPTY';
         }
 
-        return date_create_from_format('d/m/Y H:i', $datetime, new DateTimeZone('America/New_York'));
+        return date_create_from_format('d/m/Y H:i', $datetime, new \DateTimeZone('America/New_York'));
     }
 }

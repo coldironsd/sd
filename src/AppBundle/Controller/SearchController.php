@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class SearchController extends Controller
 {
     /**
-     * @Route("/searchindex", name="task_searchindex")
+     * @Route("/searchindex", name="searchindex")
      */
     public function searchindexAction(Request $request)
     {
@@ -25,17 +25,18 @@ class SearchController extends Controller
         $allReqs = null;
         // create form object.
         $form = $this->createFormBuilder($deliReq)
+            ->add('name', 'text', array('label' => false, 'attr' => array(
+                'class' => 'form-control',
+                'style' => 'width: 25em;',
+                'id' => 'test',
+                'maxlength' => 30,
+                'placeholder' => 'What')))
             ->add('pickup_addr', 'text', array('label' => false, 'attr' => array(
                 'class' => 'form-control',
                 'style' => 'width: 25em;',
                 'id' => 'test',
                 'maxlength' => 30,
-                'placeholder' => 'Form')))
-            ->add('dest_addr', 'text',  array('label' => false, 'attr' => array(
-                'class'   => 'form-control',
-                'style' => 'width: 25em;',
-                'maxlength' => 30,
-                'placeholder' => 'To')))
+                'placeholder' => 'Where')))
             ->add('search', 'submit', array('label' => 'Search', 'attr' => array(
                 'class'   => 'btn btn-primary')))
             ->getForm();
@@ -48,22 +49,22 @@ class SearchController extends Controller
             $repository = $this->getDoctrine()->getRepository('AppBundle:DeliveryRequest');
             
             $query = $repository->createQueryBuilder('dr')
-                   ->where('dr.pickup_addr LIKE :pickupaddr OR dr.dest_addr LIKE :destaddr')
+                   ->where('dr.pickup_addr LIKE :pickupaddr OR dr.name LIKE :name')
                     ->orderBy('dr.delivery_date', 'ASC')
                    ->getQuery();
                    
             // SEARCH BOTH VALUES
-            if($form->get('pickup_addr')->getData()!== null && $form->get('dest_addr')->getData()!== null){
+            if($form->get('pickup_addr')->getData()!== null && $form->get('name')->getData()!== null){
                 $query->setParameter('pickupaddr', '%' . $form->get('pickup_addr')->getData() . '%');
-                $query->setParameter('destaddr', '%' . $form->get('dest_addr')->getData() . '%');
+                $query->setParameter('name', '%' . $form->get('name')->getData() . '%');
             // ONLY SEARCH PICKUP ADDRESS
-            }elseif($form->get('pickup_addr')->getData()!== null && $form->get('dest_addr')->getData()== null){
+            }elseif($form->get('pickup_addr')->getData()!== null && $form->get('name')->getData()== null){
                 $query->setParameter('pickupaddr', '%' . $form->get('pickup_addr')->getData() . '%');
-                $query->setParameter('destaddr', '' . $form->get('dest_addr')->getData() . '');
-            // ONLY SEARCH DEST ADDRESS
-            }elseif($form->get('pickup_addr')->getData()== null && $form->get('dest_addr')->getData()!== null){
+                $query->setParameter('name', '' . $form->get('name')->getData() . '');
+            // ONLY SEARCH NAME
+            }elseif($form->get('pickup_addr')->getData()== null && $form->get('name')->getData()!== null){
                 $query->setParameter('pickupaddr', '' . $form->get('pickup_addr')->getData() . '');
-                $query->setParameter('destaddr', '%' . $form->get('dest_addr')->getData() . '%');
+                $query->setParameter('name', '%' . $form->get('name')->getData() . '%');
             }
             $allReqs = $query->getResult();
                    

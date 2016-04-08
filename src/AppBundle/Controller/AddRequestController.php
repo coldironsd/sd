@@ -16,14 +16,13 @@ class AddRequestController extends Controller
 {
     
     /**
-     * @Route("/addRequest", name="homepage2")
+     * @Route("/addRequest", name="addRequest")
      */
     public function addRequestAction(Request $request)
     {
         // 1) build the form
         $dr = new DeliveryRequest();
         $dr->setCreatedUserId($this->getUser());
-        $dr->setDeliverUserId($this->getUser());
 
         $form = $this->createForm(new DeliveryRequestType(), $dr);
 
@@ -31,18 +30,16 @@ class AddRequestController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) 
         {
-           
-            // $user->setPassword($password);
-
-        //   ->add('start', SubmitType::class, array('label' => 'Make Request'))
-        //     ->getForm();
-    
+            // parse delivery date value.
+            // $time = strtotime($dr->getDeliveryDate());
+            // $newformat = date('Y-m-d  H:i',$time);
+            $dr->setDeliveryDate(new \DateTime($dr->getDeliveryDate()));
+            // setup last updated date.
+            $dr->setLastUpdated(new \DateTime(date('d/m/Y H:i:s')));
             $em = $this->getDoctrine()->getManager();
-        
             $em->persist($dr);
             $em->flush();
-        
-            return new Response('Created delivery request id '.$dr->getId());
+            return new Response('Created delivery request id '.$dr->getId(). $dr->getName() .'|'. $dr->getDestAddr() .'|'. $dr->getPickupAddr() .'|'. $dr->getDeliveryDate()->format('d/m/Y H:i:s'));
         }
         
         return $this->render(

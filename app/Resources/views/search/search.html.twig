@@ -9,8 +9,8 @@
         
         {{ form_start(form) }}
         {{ form_errors(form) }}
-            <div class="col-lg-4">{{ form_row(form.pickup_addr, {'id': 'autocomplete-pickupAddr'}) }}</div>
-            <div class="col-lg-4">{{ form_row(form.dest_addr, {'id': 'autocomplete-destAddr'}) }}</div>
+            <div class="col-lg-4 lg-input">{{ form_row(form.name, {'id': '', 'required': false}) }}</div>
+            <div class="col-lg-4 lg-input">{{ form_row(form.pickup_addr, {'id': 'autocomplete-pickupAddr', 'required': false}) }}</div>
             {#<div class="col-lg-4">{{ form_row(form.pickup_addr, {'required': false}) }}</div>#}
             {#<div class="col-lg-4">{{ form_row(form.dest_addr, {'required': false}) }}</div>#}
         {{ form_end(form) }}
@@ -23,9 +23,9 @@
                 <th>Name</th>
                 <th>Info</th>
                 <th>Pick Up</th>
-                <th>Destination</th>
                 <th>Delivery Date</th>
                 <th>Cost</th>
+                <th>Take</th>
               </tr>
             </thead>
             <tbody>
@@ -34,9 +34,9 @@
                     <td>{{ req.name|e }}</td>
                     <td>{{ req.description|e }}</td>
                     <td>{{ req.pickupAddr|e }}</td>
-                    <td>{{ req.destAddr|e }}</td>
                     <td>{{ req.deliveryDate|date('Y-m-d') }}</td>
                     <td>{{ req.cost|e }}</td>
+                    <td><input type="submit" class="btn btn-default" value="Take"></input></td>
                   </tr>
                 {% endfor %}
             </tbody>

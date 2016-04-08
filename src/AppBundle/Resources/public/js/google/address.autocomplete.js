@@ -12,10 +12,12 @@ function initAutocomplete() {
   // Create the autocomplete object, restricting the search to geographical
   // location types.
   autocomplete = new google.maps.places.Autocomplete(
-      /** @type {!HTMLInputElement} */(document.getElementById('autocomplete-pickupAddr')),
+      // /** @type {!HTMLInputElement} */(document.getElementById('autocomplete-pickupAddr')),
+      /** @type {!HTMLInputElement} */(document.getElementsByClassName('autocomplete-pickupAddr')[0]),
       {types: ['geocode']});
   autocomplete = new google.maps.places.Autocomplete(
-      /** @type {!HTMLInputElement} */(document.getElementById('autocomplete-destAddr')),
+      // /** @type {!HTMLInputElement} */(document.getElementById('autocomplete-destAddr')),
+      /** @type {!HTMLInputElement} */(document.getElementsByClassName('autocomplete-destAddr')[0]),
       {types: ['geocode']});      
 
   // When the user selects an address from the dropdown, populate the address

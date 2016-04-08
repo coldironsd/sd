@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+        <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
             {#{% stylesheets '@AppBundle/Resources/public/css/*' filter='cssrewrite' %}#}
             {#    <link rel="stylesheet" href="{{ asset_url }}" />#}
@@ -19,20 +20,13 @@
         
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         
-        
     </head>
     <body>
-        
         {% block body %}
         
         {% endblock %}
         {% block javascripts %}
-        
-            {% javascripts '@AppBundle/Resources/public/js/jquery.js' %}
-                <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2VWJUm3sur1ZwGM5FpFMiXmYtWKNVcPY&libraries=places&callback=initAutocomplete" async defer></script>
-            {% javascripts '@AppBundle/Resources/public/js/bootstrap.min.js' %}
+            {% javascripts '@AppBundle/Resources/public/js/*' %}
                 <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
             {% javascripts '@AppBundle/Resources/public/js/google/*' %}
@@ -55,9 +49,15 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="{{ url('logout') }}">Logout</a>
+                        <li><a href="{{ url('mydashboard') }}"><span class="glyphicon glyphicon-home"/></a></li>
+                        <li><a href="{{ url('addRequest') }}">Send</a></li>
+                        <li><a href="{{ url('searchindex') }}">Carry</a></li>
+                        <li style="padding-top: 5px;">
+                            <span class="form-group form-inline" >
+                                <input class="form-control" style="margin-right: 0.2em;" type="text"/><input type="submit" class="btn btn-success" value="Find"></input>
+                            </span>
                         </li>
+                        <li><a href="{{ url('logout') }}">Logout</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -66,5 +66,5 @@
         </nav>  
            
     </body>
-    
+    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>    
 </html>

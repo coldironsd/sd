@@ -23,7 +23,9 @@ security:
                 anonymous: ~
             secured_area:
                 pattern:    ^/
-                form_login: ~
+                form_login: #~
+                    always_use_default_target_path: true
+                    default_target_path: /mydashboard
                 logout:
                     path:   /logout
                     target: /
