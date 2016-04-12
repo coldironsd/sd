@@ -16,34 +16,47 @@
         {{ form_end(form) }}
         
     </div>
-    <div class="row col-lg-12">
-        <table class="table" style="margin-top: 1em;">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Info</th>
-                <th>From Where</th>
-                <th>To Where</th>
-                <th>Delivery Date</th>
-                <th>Cost</th>
-                <th>Take</th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for req in requests %}
-                  <tr>
-                    <td>{{ req.name|e }}</td>
-                    <td>{{ req.description|e }}</td>
-                    <td>{{ req.pickupAddr|e }}</td>
-                    <td>{{ req.destAddr|e }}</td>
-                    <td>{{ req.deliveryDate|date('Y-m-d') }}</td>
-                    <td>{{ req.cost|e }}</td>
-                    <td><input type="submit" class="btn btn-default" value="Take"></input></td>
-                  </tr>
-                {% endfor %}
-            </tbody>
-          </table>
+    <div class="row col-lg-12" style="margin-top: 1em;">
+        <div class="list-group">
+          {% for req in requests %}
+          <a href="#" class="list-group-item" style="padding-bottom: 0px;margin-bottom:0px">
+              <div class="row group-inline"  style="padding-bottom: 0px;margin-bottom:0px">
+                  <div class="col col-lg-10" style="padding-bottom: 0px;margin-bottom:0px">
+                    <p style="padding-bottom: 0px;margin-bottom:0px">{{ req.pickupAddr|e }}<span class="glyphicon glyphicon-arrow-right" style="margin-right:1em;margin-left:1em;" aria-hidden="true"></span>{{ req.destAddr|e }}<i class="fa fa-clock-o" style="margin-left:1em;margin-right:0.5em;font-size:20px;"></i>{{ req.deliveryDate|date('Y-m-d') }}</p>
+                    <p style="padding-bottom: 0px;margin-bottom:0px">{{ req.name|e }}{{ req.cost|e }}</p>
+                  </div>
+                  <div class="col col-lg-2">
+                    <input type="submit" id="btnTk{{ req.id|e }}" class="btn btn-default pull-right" value="Take" onclick=" takeButtonPressed({{ req.id|e }})"></input>
+                  </div>
+              </div>
+          </a>
+          {% endfor %}
+        </div>
     </div>
 </div>
 </div>
+<script>
+function takeButtonPressed(rid){
+    //alert('send' + rid);
+    $.post("{{path('takeInSearch_ajax_update')}}",               
+            {data1: rid}, 
+            function(response){
+              if(response.code == 100 && response.success){//dummy check
+                //do something
+                //alert('success');
+                $('#btnTk'+rid).css("background-color", "#5bc0de");
+                $('#btnTk'+rid).css("color", "");
+                $('#btnTk'+rid).attr('disabled','disabled');
+                $('#btnTk'+rid).attr('value','Wait for confirm');
+              }else{
+                alert(response.code);
+              }
+            }, 
+            "json");    
+}
+
+$(document).ready(function() {     
+  // $('button').on('click', function(){takeButtonPressed();});
+});
+</script>
 {% endblock %}

@@ -24,6 +24,10 @@ addrequest:
     path: /addrequest
     defaults: { _controller: AppBundle:AddRequest:addRequest }
     
+takeInSearch_ajax_update:
+    pattern:  /update/data/from/ajax/call
+    defaults: { _controller: AppBundle:Search:takeRequest }    
+    
 # hwi_oauth_redirect:
 #     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
 #     prefix:   /connect

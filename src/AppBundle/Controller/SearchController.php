@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Entity\User;
 use AppBundle\Entity\DeliveryRequest;
+use AppBundle\Entity\TakeRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -23,6 +24,12 @@ class SearchController extends Controller
     {
         $deliReq = new DeliveryRequest();
         $allReqs = null;
+        $myTakenReqs = null;
+        
+        // fetch my taken requests.
+        $takeRepository = $this->getDoctrine()->getRepository('AppBundle:TakeRequest');
+        $myTakenReqs = $takeRepository->findBy(array('user_id' => $this->getUser()->getId()));
+        
         // create form object.
         $form = $this->createFormBuilder($deliReq)
             ->add('dest_addr', 'text', array('label' => false, 'attr' => array(
@@ -49,22 +56,22 @@ class SearchController extends Controller
             $repository = $this->getDoctrine()->getRepository('AppBundle:DeliveryRequest');
             
             $query = $repository->createQueryBuilder('dr')
-                   ->where('dr.pickup_addr LIKE :pickupaddr OR dr.name LIKE :name')
+                    ->where('dr.pickup_addr LIKE :pickupaddr OR dr.dest_addr LIKE :destaddr')
                     ->orderBy('dr.delivery_date', 'ASC')
-                   ->getQuery();
+                    ->getQuery();
                    
             // SEARCH BOTH VALUES
-            if($form->get('pickup_addr')->getData()!== null && $form->get('name')->getData()!== null){
+            if($form->get('pickup_addr')->getData()!== null && $form->get('dest_addr')->getData()!== null){
                 $query->setParameter('pickupaddr', '%' . $form->get('pickup_addr')->getData() . '%');
-                $query->setParameter('name', '%' . $form->get('name')->getData() . '%');
+                $query->setParameter('destaddr', '%' . $form->get('dest_addr')->getData() . '%');
             // ONLY SEARCH PICKUP ADDRESS
-            }elseif($form->get('pickup_addr')->getData()!== null && $form->get('name')->getData()== null){
+            }elseif($form->get('pickup_addr')->getData()!== null && $form->get('dest_addr')->getData()== null){
                 $query->setParameter('pickupaddr', '%' . $form->get('pickup_addr')->getData() . '%');
-                $query->setParameter('name', '' . $form->get('name')->getData() . '');
+                $query->setParameter('destaddr', '' . $form->get('dest_addr')->getData() . '');
             // ONLY SEARCH NAME
-            }elseif($form->get('pickup_addr')->getData()== null && $form->get('name')->getData()!== null){
+            }elseif($form->get('pickup_addr')->getData()== null && $form->get('dest_addr')->getData()!== null){
                 $query->setParameter('pickupaddr', '' . $form->get('pickup_addr')->getData() . '');
-                $query->setParameter('name', '%' . $form->get('name')->getData() . '%');
+                $query->setParameter('destaddr', '%' . $form->get('dest_addr')->getData() . '%');
             }
             $allReqs = $query->getResult();
                    
@@ -73,8 +80,10 @@ class SearchController extends Controller
             $allReqs = $this->getDoctrine()->getRepository('AppBundle:DeliveryRequest')->findAll();
         }
         
-        return $this->render('search/search.html.twig', array('form' => $form->createView(),
-        'requests' => $allReqs,));
+        return $this->render('search/search.html.twig', 
+            array('form' => $form->createView(),
+                'requests' => $allReqs,
+                'myRequests' => $myTakenReqs));
     }
     
     /**
@@ -84,5 +93,29 @@ class SearchController extends Controller
     {
         $name = 'Search';
         return $this->render('search/search.html.twig', array('name' => $name));
+    }
+    
+    /**
+     * @Route("/takeInSearch_ajax_update", name="take_request")
+     */
+    public function takeRequestAction(Request $request)
+    {
+        $user = $this->getUser();
+        // $request = $this->container->get('request');        
+        $requestId = $request->request->get('data1');
+        
+        $deliveryRequest = $this->getDoctrine()->getRepository('AppBundle:DeliveryRequest')->find($requestId);
+        
+        $takeReq = new TakeRequest();
+        $takeReq->setUserId($user);
+        $takeReq->setRequestId($deliveryRequest);
+        $takeReq->setLastUpdated(new \DateTime(date('d/m/Y H:i:s')));
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($takeReq);
+        $em->flush();
+        
+        $response = array("code" => 100, "success" => true);
+        return new Response(json_encode($response)); 
     }
 }

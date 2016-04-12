@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Form\DeliveryRequestType;
 use AppBundle\Entity\DeliveryRequest;
+use AppBundle\Entity\Enum\StatusEnum;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -23,6 +24,7 @@ class AddRequestController extends Controller
         // 1) build the form
         $dr = new DeliveryRequest();
         $dr->setCreatedUserId($this->getUser());
+        $dr->setStatus(StatusEnum::Available);
 
         $form = $this->createForm(new DeliveryRequestType(), $dr);
 

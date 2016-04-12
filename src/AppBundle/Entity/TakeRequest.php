@@ -19,6 +19,12 @@ class TakeRequest implements \Serializable
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="DeliveryRequest", inversedBy="take_request")
+     * @ORM\JoinColumn(name="request_id", referencedColumnName="id", nullable=false)
+     */
+    private $request_id;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="take_request")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
@@ -71,6 +77,20 @@ class TakeRequest implements \Serializable
 
         return $this;
     }
+    
+     /**
+     * Set requestId
+     *
+     * @param integer $requestId
+     *
+     * @return TakeRequest
+     */
+    public function setRequestId($requestId)
+    {
+        $this->request_id = $requestId;
+
+        return $this;
+    }
 
     /**
      * Get userId
@@ -80,6 +100,16 @@ class TakeRequest implements \Serializable
     public function getUserId()
     {
         return $this->user_id;
+    }
+    
+     /**
+     * Get requestId
+     *
+     * @return integer
+     */
+    public function getRequestId()
+    {
+        return $this->request_id;
     }
 
     /**

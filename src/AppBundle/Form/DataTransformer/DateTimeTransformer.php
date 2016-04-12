@@ -16,10 +16,11 @@ class DateTimeTransformer implements DataTransformerInterface
     public function transform($datetime)
     {
         if (null === $datetime) {
-            return 'EMPTY';
+            return '';
         }
+        $timestamp = strtotime($datetime);
 
-        return $datetime->format('d/m/Y H:i');
+        return $datetime->format('Y-m-d',$timestamp );
     }
 
     /**
@@ -32,8 +33,7 @@ class DateTimeTransformer implements DataTransformerInterface
     {
         // datetime optional
         if (!$datetime) {
-            echo 'EMPTY';
-            return 'EMPTY';
+            return;
         }
 
         return date_create_from_format('d/m/Y H:i', $datetime, new \DateTimeZone('America/New_York'));
