@@ -16,19 +16,21 @@ class DeliveryRequestType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array(
+            ->add('name', 'text', array('attr' => array(
+             'placeholder' => 'What',),
                 'label' => false))
-            ->add('cost', 'money', array(
+            ->add('cost', 'money', array('attr' => array(
+             'placeholder' => 'How much you wanna pay',),
                 'currency' => "USD",
                 'label' => false))
             ->add('pickup_addr', 'text', array('label' => false, 'attr' => array(
                 'class' => 'autocomplete-pickupAddr',
                 'maxlength' => 30,
-                'placeholder' => '')))
+                'placeholder' => 'From where')))
             ->add('dest_addr', 'text',  array('label' => false, 'attr' => array(
                 'class'   => 'autocomplete-destAddr',
                 'maxlength' => 30,
-                'placeholder' => '')))
+                'placeholder' => 'To where')))
             ->add('delivery_date', 'text', array(
                 'required' => true,
                 'label' => false,
@@ -37,6 +39,7 @@ class DeliveryRequestType extends AbstractType
                     'class' => 'form-control input-inline datetimepicker',
                     'data-provide' => 'datepicker',
                     'data-format' => 'dd-mm-yyyy HH:ii'
+                    'placeholder' => 'When'
                 )
             ))->add('Send Product', 'submit', array('attr' => array('class' => 'pull-right btn btn-primary')));
             
