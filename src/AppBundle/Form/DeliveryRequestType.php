@@ -17,10 +17,10 @@ class DeliveryRequestType extends AbstractType
     {
         $builder
             ->add('name', 'text', array('attr' => array(
-             'placeholder' => 'What',),
+                'placeholder' => 'What',),
                 'label' => false))
             ->add('cost', 'money', array('attr' => array(
-             'placeholder' => 'How much you wanna pay',),
+                'placeholder' => 'How much you want to pay',),
                 'currency' => "USD",
                 'label' => false))
             ->add('pickup_addr', 'text', array('label' => false, 'attr' => array(
