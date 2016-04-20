@@ -27,10 +27,14 @@ class DeliveryRequestType extends AbstractType
                 'class' => 'autocomplete-pickupAddr',
                 'maxlength' => 30,
                 'placeholder' => 'From where')))
+            ->add('pickup_addr_coord', HiddenType::class, array(
+                'data' => ''));
             ->add('dest_addr', 'text',  array('label' => false, 'attr' => array(
                 'class'   => 'autocomplete-destAddr',
                 'maxlength' => 30,
                 'placeholder' => 'To where')))
+            ->add('dest_addr_coord', HiddenType::class, array(
+                'data' => ''));
             ->add('delivery_date', 'text', array(
                 'required' => true,
                 'label' => false,
@@ -40,8 +44,9 @@ class DeliveryRequestType extends AbstractType
                     'data-provide' => 'datepicker',
                     'data-format' => 'dd-mm-yyyy HH:ii'
                     'placeholder' => 'When'
-                )
-            ))->add('Send Product', 'submit', array('attr' => array('class' => 'pull-right btn btn-primary')));
+                )))
+            ->add('Send Product', 'submit', 
+                array('attr' => array('class' => 'pull-right btn btn-primary')));
             
             // $builder->get('delivery_date')->addModelTransformer(new DateTimeTransformer()); // not working as expected.
     }
